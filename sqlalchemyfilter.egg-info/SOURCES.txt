@@ -1,7 +1,7 @@
 README.md
 setup.py
 sqlalchemyfilter/__init__.py
-sqlalchemyfilter/sqlalchemyfilter.py
+sqlalchemyfilter/models.py
 sqlalchemyfilter.egg-info/PKG-INFO
 sqlalchemyfilter.egg-info/SOURCES.txt
 sqlalchemyfilter.egg-info/dependency_links.txt
