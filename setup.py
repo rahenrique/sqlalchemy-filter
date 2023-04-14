@@ -8,5 +8,8 @@ setup(
     author_email='rafael@rah.com.br',
     url='https://github.com/rahenrique/sqlalchemy-filter',
     packages=find_packages(include=['sqlalchemyfilter']),
+    install_requires=['SQLAlchemy>=1.4.32'],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest==4.4.1'],
     license='MIT',
 )
