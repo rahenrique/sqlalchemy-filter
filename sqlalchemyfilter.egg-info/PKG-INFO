@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: sqlalchemyfilter
+Version: 0.0.1
+Summary: Filtered/paginated lists on DTO classes using SQLAlchemy
+Home-page: https://github.com/rahenrique/sqlalchemy-filter
+Author: Rah Henrique
+Author-email: rafael@rah.com.br
+License: MIT
+Platform: UNKNOWN
+
+UNKNOWN
+
