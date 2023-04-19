@@ -1,5 +1,8 @@
 # Sqlalchemy Filter
-Filtered/paginated lists on DTO classes using SQLAlchemy
+Filtered/paginated lists on DTO classes using SQLAlchemy.
+
+> This library was built with a specific use case in mind, maybe 
+> this structure is too much opinionated for a general use.
 
 # Installation
 ```bash
