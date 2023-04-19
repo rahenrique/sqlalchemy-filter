@@ -1,8 +1,11 @@
 # Sqlalchemy Filter
 Filtered/paginated lists on DTO classes using SQLAlchemy.
 
-> This library was built with a specific use case in mind, maybe 
-> this structure is too much opinionated for a general use.
+> This library was built with a specific use case in mind. Because of that, 
+> the structure required for this lib to work in a project is too 
+> opinionated for a general use out of the box. If this is the case for you, 
+> Feel free to fork this repository and make all the changes you need, using 
+> this approach as a starting point.
 
 # Installation
 ```bash
