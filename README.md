@@ -1,4 +1,4 @@
-# Sqlalchemy Filter
+# SQLAlchemyFilter
 Filtered/paginated lists on DTO classes using SQLAlchemy.
 
 > This library was built with a specific use case in mind. Because of that, 
