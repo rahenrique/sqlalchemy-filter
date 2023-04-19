@@ -54,7 +54,7 @@ result = await MyModelDTO(session).get_all_with_filters(
         page=1,
         page_size=10,
         filters=["name_field:ABC"],
-        sorts=["id:desc"]
+        sorts=["id:desc"])
 ```
 
 ## Common filters, FastAPI Dependencies and documentation
