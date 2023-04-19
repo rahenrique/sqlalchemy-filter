@@ -1,1 +1,0 @@
-from sqlalchemyfilter.models import FilteredListDTOMixin
