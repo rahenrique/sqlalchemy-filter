@@ -3,15 +3,14 @@ import uuid
 from datetime import datetime
 from distutils import util
 from math import ceil
-from typing import Union, List, Any
+from typing import Any, List, Union
 
 import sqlalchemy
-from sqlalchemy import Integer, String, Boolean, cast, inspect, and_, \
-    Float, select, func, or_, DateTime
+from sqlalchemy import Boolean, DateTime, Float, Integer, String, and_, cast, func, inspect, or_, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import QueryableAttribute, DeclarativeBase
-from sqlalchemy.sql import expression, Select, ColumnElement
+from sqlalchemy.orm import DeclarativeBase, QueryableAttribute
+from sqlalchemy.sql import ColumnElement, Select, expression
 from sqlalchemy.sql.elements import UnaryExpression
 
 
@@ -194,9 +193,11 @@ class FilteredListDTOMixin:
         operators = {
             FilteredListDTOMixin.OPERATOR_EQUALS: {"bool": is_, "numeric": in_op, "string": ilike_op, "other": eq},
             FilteredListDTOMixin.OPERATOR_GREATER_THAN: {"bool": None, "numeric": gt, "string": gt, "other": gt},
-            FilteredListDTOMixin.OPERATOR_GREATER_OR_EQUALS_THAN: {"bool": None, "numeric": ge, "string": ge, "other": ge},
+            FilteredListDTOMixin.OPERATOR_GREATER_OR_EQUALS_THAN: {"bool": None, "numeric": ge, "string": ge,
+                                                                   "other": ge},  # NOQA
             FilteredListDTOMixin.OPERATOR_LOWER_THAN: {"bool": None, "numeric": lt, "string": lt, "other": lt},
-            FilteredListDTOMixin.OPERATOR_LOWER_OR_EQUALS_THAN: {"bool": None, "numeric": le, "string": le, "other": le},
+            FilteredListDTOMixin.OPERATOR_LOWER_OR_EQUALS_THAN: {"bool": None, "numeric": le, "string": le,
+                                                                 "other": le},  # NOQA
         }
 
         # To provide more reliable results, bool values will NOT work as lists:
@@ -217,8 +218,6 @@ class FilteredListDTOMixin:
             return operators[operator]["other"](cast(field, DateTime), datetime_value)
 
         # by default, filter is converted as a string field:
-        # return cast(field, String).in_([str(x) for x in value_as_list])
-        # return cast(field, String).operators[operator][1]([str(x) for x in value_as_list])
         return operators[operator]["string"](cast(field, String), [str(x) for x in value_as_list])
 
     def _process_sorts(self, sorts: List[str]) -> List[UnaryExpression]:
@@ -270,9 +269,6 @@ class FilteredListDTOMixin:
         country = relationship("Country")
         """
         if isinstance(model, str):
-            # account for "forward references", when a related entity is
-            # created with the class name as  a string instead of a class,
-            # like: country = relationship("Country")
             module_ = importlib.import_module(self.__module__)
             return getattr(module_, model)
         return model

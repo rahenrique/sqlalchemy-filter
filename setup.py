@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='sqlalchemyfilter',
+    name='SQLAlchemyFilter',
     version='0.0.1',
     description='Filtered/paginated lists on DTO classes using SQLAlchemy',
     author='Rah Henrique',
