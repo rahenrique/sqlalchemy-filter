@@ -6,6 +6,11 @@ Filtered/paginated lists on DTO classes using SQLAlchemy
 pip install git+https://github.com/rahenrique/sqlalchemy-filter.git
 ```
 
+To remove the lib, run the following:
+```bash
+pip uninstall sqlalchemyfilter
+```
+
 # Usage
 
 Create a DTO Class to handle your data retrieving methods. In the following 
