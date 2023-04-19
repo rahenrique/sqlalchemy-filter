@@ -51,47 +51,31 @@ result = await MyModelDTO(session).get_all_with_filters(
         sorts=["id:desc"]
 ```
 
-The response will be something like:
+## Common filters, FastAPI Dependencies and documentation
+
+If you are using FastAPI, there is a Dependency helper to allow you to define 
+parameters for filtering and ordering your lists in your API routes:
 ```python
-{
-    "current_page": 1,
-    "page_size": 10,
-    "number_pages": 5,
-    "count": 42,
-    "records": []
-}
+from sqlalchemyfilter import common_filter_parameters
 ```
 
-## Common filters
-
+Following is a simple example of how to use this utility in a router file with 
+FastAPI:
 ```python
-PAGE_SIZE_DESC = "The max quantity of records to be returned in a single page"
-FILTERS_DESC = """This filter can accept search query's like `key:value` and 
-will split on the `:` char.<br/><br/>
-**key:** If it detects one `.` char inside the `key` 
-element (like `name:ABC`), it will treat `key` as a relationship. If it 
-detects one or more `,` char inside the `key` element (like `name,code:abc`), 
-it will treat `key` as a list of fields, like an `or` comparison.<br/><br/>
-**value:** If it detects one `,` char inside the `value` element (like 
-`name:AB,XZ`), it will treat `value` as a list of values, like an `or` 
-comparison.<br/><br/>
-Multiple filters in different fields are joined as `and` conditions;<br>
-Multiple values in the same field are joined as `or` conditions."""
-SORTS_DESC = """The sort will accept parameters like `col:ASC` or `col:DESC` 
-and will split on the `:` char. 
-If it does not find a `:` it will sort ascending on that column."""
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemyfilter import common_filter_parameters
 
+router = APIRouter()
 
-async def common_filter_parameters(
-        page: int = Query(1, title="Page", description="The requested page"), # NOQA
-        page_size: int = Query(100, title="Page size", description=PAGE_SIZE_DESC), # NOQA
-        filters: List[str] = Query(list(), title="Filter fields", description=FILTERS_DESC), # NOQA
-        sorts: List[str] = Query(list(), title="Sort fields", description=SORTS_DESC) # NOQA
-) -> dict:
-    return {
-        "page": page,
-        "page_size": page_size,
-        "filters": filters,
-        "sorts": sorts
-    }
+@router.get("/api/v1/my-models")
+async def get_my_models(
+        filter_parameters: dict = Depends(common_filter_parameters)
+        session: AsyncSession):
+
+    return await MyModelDTO(session).get_all_with_filters(
+        page=filter_parameters.get("page"),
+        page_size=filter_parameters.get("page_size"),
+        filters=filter_parameters.get("filters"),
+        sorts=filter_parameters.get("sorts"))
 ```
