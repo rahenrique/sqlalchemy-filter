@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='SQLAlchemyFilter',
-    version='0.0.1',
+    version='0.0.2',
     description='Filtered/paginated lists on DAO classes using SQLAlchemy',
     author='Rah Henrique',
     author_email='rafael@rah.com.br',
