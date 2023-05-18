@@ -1,5 +1,5 @@
 # SQLAlchemyFilter
-Filtered/paginated lists on DTO classes using SQLAlchemy.
+Filtered/paginated lists on DAO classes using SQLAlchemy.
 
 > This library was built with a specific use case in mind. Because of that, 
 > the structure required for this lib to work in a project is too 
@@ -14,13 +14,13 @@ pip install git+https://github.com/rahenrique/sqlalchemy-filter.git
 
 ## Usage
 
-Create a DTO Class to handle your data retrieving methods. In the following 
-example, we are creating a MyModel model, and a corresponding MyModelDTO 
+Create a DAO Class to handle your data retrieving methods. In the following 
+example, we are creating a MyModel model, and a corresponding MyModelDAO 
 repository class. In the repository class, we are extending from the 
-`FilteredListDTOMixin`, to inherit the `get_all_with_filters` method.
+`FilteredListDAOMixin`, to inherit the `get_all_with_filters` method.
 
 ```python
-from sqlalchemyfilter import FilteredListDTOMixin
+from sqlalchemyfilter import FilteredListDAOMixin
 from sqlalchemy import Column, Integer, String, select
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -32,7 +32,7 @@ class MyModel(DeclarativeBase):
     name_field = Column(String(30), nullable=False)
 
 
-class MyModelDTO(FilteredListDTOMixin):
+class MyModelDAO(FilteredListDAOMixin):
     """MyModel data transfer object implementation."""
     
     def __init__(self, session: AsyncSession) -> None:
@@ -45,7 +45,7 @@ class MyModelDTO(FilteredListDTOMixin):
 Later on, in a service or router class, we can query the repository to get the 
 list of records using filters and pagination out of the box:
 ```python
-result = await MyModelDTO(session).get_all_with_filters(
+result = await MyModelDAO(session).get_all_with_filters(
         page=1,
         page_size=10,
         filters=["name_field:ABC"],
@@ -74,7 +74,7 @@ async def get_my_models(
         filter_parameters: dict = Depends(common_filter_parameters)
         session: AsyncSession):
 
-    return await MyModelDTO(session).get_all_with_filters(
+    return await MyModelDAO(session).get_all_with_filters(
         page=filter_parameters.get("page"),
         page_size=filter_parameters.get("page_size"),
         filters=filter_parameters.get("filters"),

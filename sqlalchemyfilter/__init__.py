@@ -1,2 +1,2 @@
-from sqlalchemyfilter.models import FilteredListDTOMixin
+from sqlalchemyfilter.models import FilteredListDAOMixin
 from sqlalchemyfilter.utils import common_filter_parameters
