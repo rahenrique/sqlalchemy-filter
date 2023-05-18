@@ -14,8 +14,8 @@ from sqlalchemy.sql import ColumnElement, Select, expression
 from sqlalchemy.sql.elements import UnaryExpression
 
 
-class FilteredListDTOMixin:
-    """Mixin for filtered / paginated list on DTO classes."""
+class FilteredListDAOMixin:
+    """Mixin for filtered / paginated list on DAO classes."""
 
     OPERATOR_EQUALS = '='
     OPERATOR_GREATER_THAN = '>'
@@ -191,12 +191,12 @@ class FilteredListDTOMixin:
             python_type = field_type.python_type
 
         operators = {
-            FilteredListDTOMixin.OPERATOR_EQUALS: {"bool": is_, "numeric": in_op, "string": ilike_op, "other": eq},
-            FilteredListDTOMixin.OPERATOR_GREATER_THAN: {"bool": None, "numeric": gt, "string": gt, "other": gt},
-            FilteredListDTOMixin.OPERATOR_GREATER_OR_EQUALS_THAN: {"bool": None, "numeric": ge, "string": ge,
+            FilteredListDAOMixin.OPERATOR_EQUALS: {"bool": is_, "numeric": in_op, "string": ilike_op, "other": eq},
+            FilteredListDAOMixin.OPERATOR_GREATER_THAN: {"bool": None, "numeric": gt, "string": gt, "other": gt},
+            FilteredListDAOMixin.OPERATOR_GREATER_OR_EQUALS_THAN: {"bool": None, "numeric": ge, "string": ge,
                                                                    "other": ge},  # NOQA
-            FilteredListDTOMixin.OPERATOR_LOWER_THAN: {"bool": None, "numeric": lt, "string": lt, "other": lt},
-            FilteredListDTOMixin.OPERATOR_LOWER_OR_EQUALS_THAN: {"bool": None, "numeric": le, "string": le,
+            FilteredListDAOMixin.OPERATOR_LOWER_THAN: {"bool": None, "numeric": lt, "string": lt, "other": lt},
+            FilteredListDAOMixin.OPERATOR_LOWER_OR_EQUALS_THAN: {"bool": None, "numeric": le, "string": le,
                                                                  "other": le},  # NOQA
         }
 
