@@ -4,7 +4,7 @@ Filtered/paginated lists on DAO classes using SQLAlchemy.
 > This library was built with a specific use case in mind. Because of that, 
 > the structure required for this lib to work in a project is too 
 > opinionated for a general use out of the box. If this is the case for you, 
-> Feel free to fork this repository and make all the changes you need, using 
+> feel free to fork this repository and make all the changes you need, using 
 > this approach as a starting point.
 
 ## Installation
@@ -36,10 +36,10 @@ class MyModelDAO(FilteredListDAOMixin):
     """MyModel data transfer object implementation."""
     
     def __init__(self, session: AsyncSession) -> None:
-    super().__init__()
-    self.session = session
-    self.model = MyModel
-    self.base_query = select(MyModel)
+        super().__init__()
+        self.session = session
+        self.model = MyModel
+        self.base_query = select(MyModel)
 ```
 
 Later on, in a service or router class, we can query the repository to get the 
